@@ -1,0 +1,14 @@
+D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\config\WebConfig.java
+D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\controller\AuthController.java
+D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\controller\TaskController.java
+D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\dto\LoginRequest.java
+D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\dto\RegisterRequest.java
+D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\dto\TaskRequest.java
+D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\entity\Task.java
+D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\entity\User.java
+D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\exception\GlobalExceptionHandler.java
+D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\repository\TaskRepository.java
+D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\repository\UserRepository.java
+D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\service\TaskService.java
+D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\service\UserService.java
+D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\SmartTaskManagerApplication.java
