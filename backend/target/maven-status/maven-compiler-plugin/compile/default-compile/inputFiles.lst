@@ -1,6 +1,7 @@
 D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\config\WebConfig.java
 D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\controller\AuthController.java
 D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\controller\TaskController.java
+D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\dto\ForgotPasswordRequest.java
 D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\dto\LoginRequest.java
 D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\dto\RegisterRequest.java
 D:\J.SCRIPT\SmartTaskManager\backend\src\main\java\com\example\smarttaskmanager\dto\TaskRequest.java

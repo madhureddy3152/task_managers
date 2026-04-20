@@ -1,5 +1,6 @@
 package com.example.smarttaskmanager.controller;
 
+import com.example.smarttaskmanager.dto.ForgotPasswordRequest;
 import com.example.smarttaskmanager.dto.LoginRequest;
 import com.example.smarttaskmanager.dto.RegisterRequest;
 import com.example.smarttaskmanager.entity.User;
@@ -59,5 +60,19 @@ public class AuthController {
                     return ResponseEntity.ok(response);
                 })
                 .orElseGet(() -> ResponseEntity.status(401).body(Map.of("error", "Invalid credentials")));
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody ForgotPasswordRequest request) {
+        if (request.getEmail() == null || request.getEmail().isBlank() || request.getNewPassword() == null || request.getNewPassword().isBlank()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Email and new password are required"));
+        }
+
+        boolean success = userService.resetPassword(request.getEmail(), request.getNewPassword());
+        if (success) {
+            return ResponseEntity.ok(Map.of("message", "Password reset successful"));
+        } else {
+            return ResponseEntity.status(404).body(Map.of("error", "Email not found"));
+        }
     }
 }

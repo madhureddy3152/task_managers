@@ -34,4 +34,13 @@ public class UserService {
         return userRepository.findByEmail(email)
                 .filter(user -> user.getPassword().equals(password));
     }
+
+    public boolean resetPassword(String email, String newPassword) {
+        return userRepository.findByEmail(email)
+                .map(user -> {
+                    user.setPassword(newPassword);
+                    userRepository.save(user);
+                    return true;
+                }).orElse(false);
+    }
 }

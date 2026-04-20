@@ -1,11 +1,31 @@
 const API_BASE = "http://localhost:8080";
 
+window.togglePassword = function(inputId) {
+  const input = document.getElementById(inputId);
+  const btn = input.nextElementSibling;
+  
+  const showIcon = `<svg class="eye-show" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`;
+  const hideIcon = `<svg class="eye-hide" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>`;
+
+  if (input.type === "password") {
+    input.type = "text";
+    btn.innerHTML = hideIcon;
+  } else {
+    input.type = "password";
+    btn.innerHTML = showIcon;
+  }
+};
+
 const loginTab = document.getElementById("loginTab");
 const registerTab = document.getElementById("registerTab");
 const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
+const forgotPasswordForm = document.getElementById("forgotPasswordForm");
 const loginMessage = document.getElementById("loginMessage");
 const registerMessage = document.getElementById("registerMessage");
+const forgotMessage = document.getElementById("forgotMessage");
+const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+const backToLogin = document.getElementById("backToLogin");
 
 const authToken = localStorage.getItem("smartTaskUserId");
 
@@ -18,6 +38,15 @@ if (window.location.pathname.endsWith("index.html") || window.location.pathname 
   registerTab?.addEventListener("click", () => toggleAuth(false));
   loginForm?.addEventListener("submit", handleLogin);
   registerForm?.addEventListener("submit", handleRegister);
+  forgotPasswordForm?.addEventListener("submit", handleForgotPassword);
+  forgotPasswordLink?.addEventListener("click", (e) => {
+    e.preventDefault();
+    showForgotPassword(true);
+  });
+  backToLogin?.addEventListener("click", (e) => {
+    e.preventDefault();
+    showForgotPassword(false);
+  });
 }
 
 if (window.location.pathname.endsWith("dashboard.html") || window.location.pathname.endsWith("/dashboard")) {
@@ -37,10 +66,22 @@ if (window.location.pathname.endsWith("dashboard.html") || window.location.pathn
 function toggleAuth(loginMode) {
   loginForm.classList.toggle("hidden", !loginMode);
   registerForm.classList.toggle("hidden", loginMode);
+  forgotPasswordForm.classList.add("hidden");
   loginTab.classList.toggle("active", loginMode);
   registerTab.classList.toggle("active", !loginMode);
   loginMessage.textContent = "";
   registerMessage.textContent = "";
+  forgotMessage.textContent = "";
+}
+
+function showForgotPassword(show) {
+  forgotPasswordForm.classList.toggle("hidden", !show);
+  loginForm.classList.add("hidden");
+  registerForm.classList.add("hidden");
+  loginTab.classList.remove("active");
+  registerTab.classList.remove("active");
+  forgotMessage.textContent = "";
+  if (!show) toggleAuth(true);
 }
 
 async function handleLogin(event) {
@@ -102,6 +143,46 @@ async function handleRegister(event) {
   } catch (error) {
     registerMessage.textContent = "Unable to connect to the backend. Please start the server and try again.";
     registerMessage.style.color = "#dc2626";
+  }
+}
+
+async function handleForgotPassword(event) {
+  event.preventDefault();
+  forgotMessage.textContent = "";
+  forgotMessage.style.color = "#6b7280";
+
+  const email = document.getElementById("forgotEmail").value.trim();
+  const newPassword = document.getElementById("newPassword").value.trim();
+  const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+  if (newPassword !== confirmPassword) {
+    forgotMessage.textContent = "Passwords do not match.";
+    forgotMessage.style.color = "#dc2626";
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE}/forgot-password`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, newPassword }),
+    });
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      forgotMessage.textContent = data.error || "Reset failed. Please try again.";
+      forgotMessage.style.color = "#dc2626";
+      return;
+    }
+
+    forgotMessage.textContent = "Password reset successful! You can now login.";
+    forgotMessage.style.color = "#16a34a";
+    setTimeout(() => {
+      showForgotPassword(false);
+    }, 2000);
+  } catch (error) {
+    forgotMessage.textContent = "Unable to connect to the backend. Please try again.";
+    forgotMessage.style.color = "#dc2626";
   }
 }
 
