@@ -1,0 +1,12 @@
+com\example\smarttaskmanager\entity\Task.class
+com\example\smarttaskmanager\service\TaskService.class
+com\example\smarttaskmanager\dto\LoginRequest.class
+com\example\smarttaskmanager\entity\User.class
+com\example\smarttaskmanager\dto\RegisterRequest.class
+com\example\smarttaskmanager\repository\TaskRepository.class
+com\example\smarttaskmanager\controller\TaskController.class
+com\example\smarttaskmanager\config\WebConfig.class
+com\example\smarttaskmanager\controller\AuthController.class
+com\example\smarttaskmanager\dto\TaskRequest.class
+com\example\smarttaskmanager\repository\UserRepository.class
+com\example\smarttaskmanager\service\UserService.class
